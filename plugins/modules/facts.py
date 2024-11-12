@@ -251,9 +251,12 @@ class Default(FactsBase):
         data = re.sub(r"\n\s*\n", r"\n", data)
 
         lines = data.splitlines()
+        statusline = re.compile("^\S*#$")
 
         modules = {}
         for line in lines:
+            if statusline.match(line):
+              continue
             # remove extra chars
             line = re.sub(r'"', r"", line)
             line = re.sub(r"\s+", r" ", line)
